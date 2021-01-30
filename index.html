@@ -9,27 +9,48 @@
 </head>
 
 <body>
-    <div class="tile is-ancestor">
+    <div class="tile is-ancestor m-2">
         <div class="tile is-4 is-parent is-vertical">
-            <div class="tile is-child box"></div>
-            <div class="tile is-child box"></div>
+            <article class="tile is-child box">
+                <p class="subtitle">Search for a City:</p>
+                <div class="field has-addons">
+                    <div class="control">
+                      <input class="input" type="text" placeholder="Find a repository">
+                    </div>
+                    <div class="control">
+                      <a class="button is-info">
+                        Search
+                      </a>
+                    </div>
+                  </div>
+            </article>
+            <div class="tile is-child ">
+                <div class="tile is-child box"></div>
+                <div class="tile is-child box"></div>
+                <div class="tile is-child box"></div>
+                <div class="tile is-child box"></div>
+                <div class="tile is-child box"></div>
+            </div>
 
         </div>
-        <div class="tile is-vertical box">
-            <article class="tile box">
+        <div class="tile is-vertical is-parent">
+            <article class="tile is-child box">
                 <p class="title">Atlanta</p>
-                <p class="subtitle">Temperature</p>
+                <p class="content">Temperature:</p>
+                <p class="content">Humidity:</p>
+                <p class="content">Wind Speed:</p>
+                <p class="content">UV Index:</p>
             </article>
             <div class="tile is-vertical">
-                <div class="tile">
+                <div class="tile is-parent">
                     <p>5-Day Forecast:</p>
                 </div>
-                <div class="tile">
-                    <div class="tile box"></div>
-                    <div class="tile box"></div>
-                    <div class="tile box"></div>
-                    <div class="tile box"></div>
-                    <div class="tile box"></div>
+                <div class="tile  t">
+                    <div class="tile is-child box"></div>
+                    <div class="tile is-child box"></div>
+                    <div class="tile is-child box"></div>
+                    <div class="tile is-child box"></div>
+                    <div class="tile is-child box"></div>
                 </div>
             </div>
         </div>
