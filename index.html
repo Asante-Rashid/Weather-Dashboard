@@ -68,11 +68,11 @@
 
         $("#search").on("click", function (event) {
             event.preventDefault();
-
+            var apiKey = "62420d09c80e7614a49ca948ad697a03";
             var city = $("#city-input").val();
             console.log(city);
             // need to change query url code to fit new API
-            var queryURL = "https://www.omdbapi.com/?t=" + city + "&y=&plot=short&apikey=trilogy";
+            var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey;
 
             $.ajax({
                 url: queryURL,
