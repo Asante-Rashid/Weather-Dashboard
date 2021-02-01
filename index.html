@@ -10,7 +10,7 @@
 
 <body>
     <nav class="navbar has-background-grey-dark has-text-centered">
-        <p class="navbar-item has-text-white  title">Weather Dashboard</p>
+        <p class="navbar-item has-text-white title">Weather Dashboard</p>
     </nav>
     <div class="tile is-ancestor m-2">
         <div class="tile is-4 is-child is-vertical p-4">
@@ -70,10 +70,8 @@
             event.preventDefault();
             var apiKey = "62420d09c80e7614a49ca948ad697a03";
             var city = $("#city-input").val();
-            console.log(city);
-            // need to change query url code to fit new API
+
             var queryCurrentURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey;
-            // var queryForecastURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + latitude + "&lon=" longitude + "&exclude=current,minutely,hourly,alerts&appid=" + apiKey;
 
             $.ajax({
                 url: queryCurrentURL,
@@ -82,10 +80,21 @@
                 // instread of console log this should manipuilate the DOM like in the previous homwork
                 console.log(response);
                 $("#current-city").text(response.name);
-                $("#current-temp").text("Temperature:" + response.main.temp);
-                $("#current-humidity").text("Humidity:" + response.main.humidity);
-                $("#current-wind").text("Wind Speed" + response.wind.speed);
-                // $("#current-uv").text(response.name);
+                $("#current-temp").text("Temperature: " + response.main.temp);
+                $("#current-humidity").text("Humidity: " + response.main.humidity);
+                $("#current-wind").text("Wind Speed " + response.wind.speed);
+
+                var lat = response.coord.lat;
+                var lon = response.coord.lon;
+                var queryForecastURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=current,minutely,hourly,alerts&appid=" + apiKey;
+                $.ajax({
+                    url: queryForecastURL,
+                    method: "GET"
+                }).then(function (response2) {
+                    console.log(response2);
+
+                    $("#current-uv").text("UC Index: " + response2.daily[0].uvi);
+                });
             });
         });
 
