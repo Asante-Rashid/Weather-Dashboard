@@ -41,7 +41,7 @@
         </div>
         <div class="tile is-vertical is-parent">
             <article class="tile is-child box">
-                <p class="title">Atlanta</p>
+                <p id="current-city" class="title current-city">City</p>
                 <p class="content">Temperature:</p>
                 <p class="content">Humidity:</p>
                 <p class="content">Wind Speed:</p>
@@ -72,14 +72,16 @@
             var city = $("#city-input").val();
             console.log(city);
             // need to change query url code to fit new API
-            var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey;
+            var queryCurrentURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey;
+            // var queryForecastURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + latitude + "&lon=" longitude + "&exclude=current,minutely,hourly,alerts&appid=" + apiKey;
 
             $.ajax({
-                url: queryURL,
+                url: queryCurrentURL,
                 method: "GET"
             }).then(function (response) {
                 // instread of console log this should manipuilate the DOM like in the previous homwork
                 console.log(response);
+                $(".current-city").text(response.name);
             });
         });
 
