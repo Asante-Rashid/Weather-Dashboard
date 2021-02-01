@@ -13,7 +13,7 @@
         <p class="navbar-item has-text-white title">Weather Dashboard</p>
     </nav>
     <div class="tile is-ancestor m-2">
-        <div class="tile is-4 is-child is-vertical p-4">
+        <div class="tile is-4 is-child is-vertical p-4 has-background-grey-lighter box">
             <article class="tile is-child ">
                 <p class="subtitle">Search for a City:</p>
                 <div class="field has-addons">
@@ -27,9 +27,9 @@
                     </div>
                 </div>
             </article>
-            <div class="tile is-child ">
+            <div id="history" class="tile is-child ">
                 <div class="tile is-child box">City 1</div>
-                <div class="tile is-child box"></div>
+                <div class="tile is-child box"> </div>
                 <div class="tile is-child box"></div>
                 <div class="tile is-child box"></div>
                 <div class="tile is-child box"></div>
@@ -39,7 +39,7 @@
             </div>
 
         </div>
-        <div class="tile is-vertical is-parent">
+        <div class="tile is-vertical is-parent ">
             <article class="tile is-child box">
                 <p id="current-city" class="title">City</p>
                 <p id="current-temp" class="content">Temperature:</p>
@@ -47,16 +47,41 @@
                 <p id="current-wind" class="content">Wind Speed:</p>
                 <p id="current-uv" class="content">UV Index:</p>
             </article>
-            <div class="tile is-vertical">
-                <div class="tile is-parent">
-                    <p>5-Day Forecast:</p>
+            <div class="tile is-vertical ">
+                <div class="tile is-parent ">
+                    <p class="subtitle">5-Day Forecast:</p>
                 </div>
-                <div class="tile">
-                    <div class="tile is-child box"></div>
-                    <div class="tile is-child box"></div>
-                    <div class="tile is-child box"></div>
-                    <div class="tile is-child box"></div>
-                    <div class="tile is-child box"></div>
+                <div class="tile is-parent ">
+                    <article class="tile is-child  box">
+                        <p class="subtitle">Date </p>
+                        <p class="content">icon</p>
+                        <p class="content">temp</p>
+                        <p class="content">humidity</p>
+                    </article>
+                    <article class="tile is-child box">
+                        <p class="subtitle">Date </p>
+                        <p class="content">icon</p>
+                        <p class="content">temp</p>
+                        <p class="content">humidity</p>
+                    </article>
+                    <article class="tile is-child box">
+                        <p class="subtitle">Date </p>
+                        <p class="content">icon</p>
+                        <p class="content">temp</p>
+                        <p class="content">humidity</p>
+                    </article>
+                    <article class="tile is-child box">
+                        <p class="subtitle">Date </p>
+                        <p class="content">icon</p>
+                        <p class="content">temp</p>
+                        <p class="content">humidity</p>
+                    </article>
+                    <article class="tile is-child box">
+                        <p class="subtitle">Date </p>
+                        <p class="content">icon</p>
+                        <p class="content">temp</p>
+                        <p class="content">humidity</p>
+                    </article>
                 </div>
             </div>
         </div>
@@ -68,35 +93,46 @@
 
         $("#search").on("click", function (event) {
             event.preventDefault();
+
             var apiKey = "62420d09c80e7614a49ca948ad697a03";
             var city = $("#city-input").val();
-
             var queryCurrentURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey;
 
+            // pulla API data and stores it localy
             $.ajax({
                 url: queryCurrentURL,
                 method: "GET"
             }).then(function (response) {
-                // instread of console log this should manipuilate the DOM like in the previous homwork
-                console.log(response);
-                $("#current-city").text(response.name);
-                $("#current-temp").text("Temperature: " + response.main.temp);
-                $("#current-humidity").text("Humidity: " + response.main.humidity);
-                $("#current-wind").text("Wind Speed " + response.wind.speed);
+                localStorage.setItem("response", JSON.stringify(response));
 
                 var lat = response.coord.lat;
                 var lon = response.coord.lon;
                 var queryForecastURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=current,minutely,hourly,alerts&appid=" + apiKey;
+
                 $.ajax({
                     url: queryForecastURL,
                     method: "GET"
                 }).then(function (response2) {
-                    console.log(response2);
-
-                    $("#current-uv").text("UC Index: " + response2.daily[0].uvi);
+                    localStorage.setItem("response2", JSON.stringify(response2));
                 });
             });
+
+            renderCurrent();
+
+            function renderCurrent() {
+                var response = JSON.parse(localStorage.getItem("response"));
+                var response2 = JSON.parse(localStorage.getItem("response2"));
+                $("#current-city").text(response.name);
+                $("#current-temp").text("Temperature: " + response.main.temp + " K");
+                $("#current-humidity").text("Humidity: " + response.main.humidity);
+                $("#current-wind").text("Wind Speed " + response.wind.speed);
+                $("#current-uv").text("UC Index: " + response2.daily[0].uvi);
+                console.log(response);
+                console.log(response2);
+            }
         });
+ // Convert the temp to fahrenheit
+//  var tempF = (response.main.temp - 273.15) * 1.80 + 32;
 
     </script>
 
