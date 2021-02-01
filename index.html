@@ -41,11 +41,11 @@
         </div>
         <div class="tile is-vertical is-parent">
             <article class="tile is-child box">
-                <p id="current-city" class="title current-city">City</p>
-                <p class="content">Temperature:</p>
-                <p class="content">Humidity:</p>
-                <p class="content">Wind Speed:</p>
-                <p class="content">UV Index:</p>
+                <p id="current-city" class="title">City</p>
+                <p id="current-temp" class="content">Temperature:</p>
+                <p id="current-humidity" class="content">Humidity:</p>
+                <p id="current-wind" class="content">Wind Speed:</p>
+                <p id="current-uv" class="content">UV Index:</p>
             </article>
             <div class="tile is-vertical">
                 <div class="tile is-parent">
@@ -81,7 +81,11 @@
             }).then(function (response) {
                 // instread of console log this should manipuilate the DOM like in the previous homwork
                 console.log(response);
-                $(".current-city").text(response.name);
+                $("#current-city").text(response.name);
+                $("#current-temp").text("Temperature:" + response.main.temp);
+                $("#current-humidity").text("Humidity:" + response.main.humidity);
+                $("#current-wind").text("Wind Speed" + response.wind.speed);
+                // $("#current-uv").text(response.name);
             });
         });
 
