@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <nav class="navbar has-background-grey-dark has-text-centered">
+    <nav class="navbar has-background-grey-dark has-text-right">
         <p class="navbar-item has-text-white title">Weather Dashboard</p>
     </nav>
     <div class="tile is-ancestor m-2">
@@ -29,11 +29,11 @@
             </article>
             <div id="history" class="tile is-child ">
                 <div class="tile is-child box">City 1</div>
-                <div class="tile is-child box"> </div>
-                <div class="tile is-child box"></div>
-                <div class="tile is-child box"></div>
-                <div class="tile is-child box"></div>
-                <div class="tile is-child box"></div>
+                <div class="tile is-child box is-radiusless	"> </div>
+                <div class="tile is-child box is-radiusless	"></div>
+                <div class="tile is-child box is-radiusless	"></div>
+                <div class="tile is-child box is-radiusless	"></div>
+                <div class="tile is-child box is-radiusless	"></div>
                 <div class="tile is-child box"></div>
 
             </div>
@@ -41,7 +41,7 @@
         </div>
         <div class="tile is-vertical is-parent ">
             <article class="tile is-child box">
-                <p id="current-city" class="title">City</p>
+                <p id="current-city" class="title"></p>
                 <p id="current-temp" class="content">Temperature:</p>
                 <p id="current-humidity" class="content">Humidity:</p>
                 <p id="current-wind" class="content">Wind Speed:</p>
@@ -52,35 +52,35 @@
                     <p class="subtitle">5-Day Forecast:</p>
                 </div>
                 <div class="tile is-parent ">
-                    <article class="tile is-child  box">
-                        <p class="subtitle">Date </p>
-                        <p class="content">icon</p>
-                        <p class="content">temp</p>
-                        <p class="content">humidity</p>
+                    <article class="tile is-child box">
+                        <p id="1-date" class="subtitle">Date </p>
+                        <!-- <p id="1-icon" class="content">icon</p> -->
+                        <p id="1-temp" class="content"></p>
+                        <p id="1-humidity" class="content"></p>
                     </article>
                     <article class="tile is-child box">
-                        <p class="subtitle">Date </p>
-                        <p class="content">icon</p>
-                        <p class="content">temp</p>
-                        <p class="content">humidity</p>
+                        <p id="2-date" class="subtitle">Date </p>
+                        <!-- <p id="2-icon" class="content">icon</p> -->
+                        <p id="2-temp" class="content"></p>
+                        <p id="2-humidity" class="content"></p>
                     </article>
                     <article class="tile is-child box">
-                        <p class="subtitle">Date </p>
-                        <p class="content">icon</p>
-                        <p class="content">temp</p>
-                        <p class="content">humidity</p>
+                        <p id="3-date" class="subtitle">Date </p>
+                        <!-- <p id="3-icon" class="content">icon</p> -->
+                        <p id="3-temp" class="content"></p>
+                        <p id="3-humidity" class="content"></p>
                     </article>
                     <article class="tile is-child box">
-                        <p class="subtitle">Date </p>
-                        <p class="content">icon</p>
-                        <p class="content">temp</p>
-                        <p class="content">humidity</p>
+                        <p id="4-date" class="subtitle">Date </p>
+                        <!-- <p id="4-icon" class="content">icon</p> -->
+                        <p id="4-temp" class="content"></p>
+                        <p id="4-humidity" class="content"></p>
                     </article>
                     <article class="tile is-child box">
-                        <p class="subtitle">Date </p>
-                        <p class="content">icon</p>
-                        <p class="content">temp</p>
-                        <p class="content">humidity</p>
+                        <p id="5-date" class="subtitle">Date </p>
+                        <!-- <p id="5-icon" class="content">icon</p> -->
+                        <p id="5-temp" class="content"></p>
+                        <p id="5-humidity" class="content"></p>
                     </article>
                 </div>
             </div>
@@ -116,20 +116,41 @@
                     localStorage.setItem("response2", JSON.stringify(response2));
                 });
             });
+            var response = JSON.parse(localStorage.getItem("response"));
+            var response2 = JSON.parse(localStorage.getItem("response2"));
 
             renderCurrent();
-
+            renderForecast();
+// older cities are popping up because of delay
             function renderCurrent() {
-                var response = JSON.parse(localStorage.getItem("response"));
-                var response2 = JSON.parse(localStorage.getItem("response2"));
                 $("#current-city").text(response.name);
                 $("#current-temp").text("Temperature: " + response.main.temp + " K");
                 $("#current-humidity").text("Humidity: " + response.main.humidity);
                 $("#current-wind").text("Wind Speed " + response.wind.speed);
-                $("#current-uv").text("UC Index: " + response2.daily[0].uvi);
+                $("#current-uv").text("UV Index: " + response2.daily[0].uvi);
                 console.log(response);
                 console.log(response2);
             }
+
+            function renderForecast() {
+                $("#1-temp").text("Temperature: " + response2.daily[1].temp.day + " K");
+                $("#1-humidity").text("Humidity: " + response2.daily[1].humidity);
+
+                $("#2-temp").text("Temperature: " + response2.daily[2].temp.day + " K");
+                $("#2-humidity").text("Humidity: " + response2.daily[2].humidity);
+
+                $("#3-temp").text("Temperature: " + response2.daily[3].temp.day + " K");
+                $("#3-humidity").text("Humidity: " + response2.daily[3].humidity);
+
+                $("#4-temp").text("Temperature: " + response2.daily[4].temp.day + " K");
+                $("#4-humidity").text("Humidity: " + response2.daily[4].humidity);
+
+                $("#5-temp").text("Temperature: " + response2.daily[5].temp.day + " K");
+                $("#5-humidity").text("Humidity: " + response2.daily[5].humidity);
+               
+            }
+
+
         });
  // Convert the temp to fahrenheit
 //  var tempF = (response.main.temp - 273.15) * 1.80 + 32;
